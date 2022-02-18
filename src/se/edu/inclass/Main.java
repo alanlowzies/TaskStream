@@ -28,6 +28,8 @@ public class Main {
         ArrayList<Task> filterList = filterTasksByString(tasksData, "11");
         System.out.println("\nPrinting filtered list of data");
         printData(filterList);
+
+        System.out.println("Total number of deadlines: " + countDeadlinesWithStream(tasksData));
     }
 
     private static int countDeadlines(ArrayList<Task> tasksData) {
@@ -40,10 +42,26 @@ public class Main {
         return count;
     }
 
+    private static int countDeadlinesWithStream(ArrayList<Task> tasks) {
+        int count = 0;
+
+        count = (int) tasks.stream()
+                .filter((t) -> t instanceof Deadline)
+                .count();
+
+        return count;
+    }
+
     public static void printData(ArrayList<Task> tasksData) {
         for (Task t : tasksData) {
-            System.out.println(t);
+            System.out.println(t);  // Method call
         }
+    }
+
+    public static void printDataWithStreams(ArrayList<Task> tasks) {
+        System.out.println("\nPrint tasks using streams");
+        tasks.stream()      // Convert tasks data to stream
+                .forEach(System.out::println); // Terminal operation; C++ way of resolving object-method references
     }
 
     public static void printDeadlines(ArrayList<Task> tasksData) {
